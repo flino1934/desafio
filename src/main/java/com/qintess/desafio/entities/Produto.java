@@ -1,11 +1,14 @@
 package com.qintess.desafio.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -13,16 +16,19 @@ import javax.persistence.Table;
 public class Produto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	//Identifica como chave primaria
+	// Identifica como chave primaria
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	//Auto incrementavel no banco
+	// Auto incrementavel no banco
 	private Integer id;
 	private Double precoVenda;
 	private Integer minEstoque;
 	private String nome;
 	private String foto;
+
+	@OneToMany(mappedBy = "id.produto")
+	private Set<FornecedorHasProduto> fornecedorHasProduto = new HashSet<>();
 
 	public Produto() {
 		// TODO Auto-generated constructor stub
@@ -76,6 +82,10 @@ public class Produto implements Serializable {
 
 	public void setFoto(String foto) {
 		this.foto = foto;
+	}
+
+	public Set<FornecedorHasProduto> getFornecedorHasProduto() {
+		return fornecedorHasProduto;
 	}
 
 	@Override

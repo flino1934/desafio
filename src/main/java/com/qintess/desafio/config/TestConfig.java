@@ -8,7 +8,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.qintess.desafio.entities.Fornecedor;
+import com.qintess.desafio.entities.FornecedorHasProduto;
 import com.qintess.desafio.entities.Produto;
+import com.qintess.desafio.repositories.FornecedorHasProdutoRepository;
 import com.qintess.desafio.repositories.FornecedorRepository;
 import com.qintess.desafio.repositories.ProdutoRepository;
 
@@ -25,6 +27,9 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private FornecedorHasProdutoRepository fornecedorHasProdutorepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -37,6 +42,13 @@ public class TestConfig implements CommandLineRunner{
 		Produto p1 = new Produto(null,02.0,10,"Parafuso",null);
 		Produto p2 = new Produto(null,22.0,12,"Martelo",null);
 		produtoRepository.saveAll(Arrays.asList(p1,p2));
+		
+		FornecedorHasProduto fhp1 = new FornecedorHasProduto(f1,p2,16,p2.getPrecoVenda());
+		FornecedorHasProduto fhp2 = new FornecedorHasProduto(f1,p1,12,p1.getPrecoVenda());
+		FornecedorHasProduto fhp3 = new FornecedorHasProduto(f2,p2,160,p2.getPrecoVenda());
+		
+		fornecedorHasProdutorepository.saveAll(Arrays.asList(fhp1,fhp2,fhp2));
+		
 	}
 	
 }
