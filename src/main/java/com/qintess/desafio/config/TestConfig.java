@@ -1,5 +1,6 @@
 package com.qintess.desafio.config;
 
+import java.time.Instant;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +11,11 @@ import org.springframework.context.annotation.Profile;
 import com.qintess.desafio.entities.Fornecedor;
 import com.qintess.desafio.entities.FornecedorHasProduto;
 import com.qintess.desafio.entities.Produto;
+import com.qintess.desafio.entities.Venda;
 import com.qintess.desafio.repositories.FornecedorHasProdutoRepository;
 import com.qintess.desafio.repositories.FornecedorRepository;
 import com.qintess.desafio.repositories.ProdutoRepository;
+import com.qintess.desafio.repositories.VendaRepository;
 
 @Configuration
 //Esta falando que é uma classe de configuração
@@ -26,10 +29,16 @@ public class TestConfig implements CommandLineRunner{
 	private FornecedorRepository fornecedorRepository;
 	
 	@Autowired
+	//Esta fazendo uma injeção de dependencia de forma clara 
 	private ProdutoRepository produtoRepository;
 	
 	@Autowired
+	//Esta fazendo uma injeção de dependencia de forma clara 
 	private FornecedorHasProdutoRepository fornecedorHasProdutorepository;
+	
+	@Autowired
+	//Esta fazendo uma injeção de dependencia de forma clara 
+	private VendaRepository vendaRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -47,7 +56,13 @@ public class TestConfig implements CommandLineRunner{
 		FornecedorHasProduto fhp2 = new FornecedorHasProduto(f1,p1,12,p1.getPrecoVenda());
 		FornecedorHasProduto fhp3 = new FornecedorHasProduto(f2,p2,160,p2.getPrecoVenda());
 		
-		fornecedorHasProdutorepository.saveAll(Arrays.asList(fhp1,fhp2,fhp2));
+		fornecedorHasProdutorepository.saveAll(Arrays.asList(fhp1,fhp2,fhp3));
+		
+		Venda v1 = new Venda(null,1,3,"Dinheiro",Instant.parse("2020-01-20T19:53:07Z"));
+		Venda v2 = new Venda(null,2,7,"CC",Instant.parse("2020-02-20T19:53:07Z"));
+		Venda v3 = new Venda(null,3,5,"CD",Instant.parse("2020-03-20T19:53:07Z"));
+		
+		vendaRepository.saveAll(Arrays.asList(v1,v2,v3));
 		
 	}
 	

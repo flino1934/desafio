@@ -6,6 +6,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.qintess.desafio.entities.pk.FornecedorHasProdutoPK;
 
 @Entity
@@ -32,6 +33,8 @@ public class FornecedorHasProduto implements Serializable {
 		this.precoCusto = precoCusto;
 	}
 
+	@JsonIgnore
+	//Para cortar o lupping infinito pois o json ficava chamando o fornecedor e o fornecedor chamava o produto e assim repitidamente
 	public Fornecedor getFornecedor() {
 		return id.getFornecedor();
 	}
@@ -39,7 +42,7 @@ public class FornecedorHasProduto implements Serializable {
 	public void setFornecedor(Fornecedor fornecedor) {
 		id.setFornecedor(fornecedor);
 	}
-
+	@JsonIgnore
 	public Produto getProduto() {
 		return id.getProduto();
 	}
