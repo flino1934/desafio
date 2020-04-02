@@ -12,10 +12,12 @@ import com.qintess.desafio.entities.Fornecedor;
 import com.qintess.desafio.entities.FornecedorHasProduto;
 import com.qintess.desafio.entities.Produto;
 import com.qintess.desafio.entities.Venda;
+import com.qintess.desafio.entities.VendasItens;
 import com.qintess.desafio.repositories.FornecedorHasProdutoRepository;
 import com.qintess.desafio.repositories.FornecedorRepository;
 import com.qintess.desafio.repositories.ProdutoRepository;
 import com.qintess.desafio.repositories.VendaRepository;
+import com.qintess.desafio.repositories.VendasItensRepository;
 
 @Configuration
 //Esta falando que é uma classe de configuração
@@ -39,6 +41,9 @@ public class TestConfig implements CommandLineRunner{
 	@Autowired
 	//Esta fazendo uma injeção de dependencia de forma clara 
 	private VendaRepository vendaRepository;
+	
+	@Autowired
+	private VendasItensRepository vendasItensRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -62,7 +67,17 @@ public class TestConfig implements CommandLineRunner{
 		Venda v2 = new Venda(null,2,7,"CC",Instant.parse("2020-02-20T19:53:07Z"));
 		Venda v3 = new Venda(null,3,5,"CD",Instant.parse("2020-03-20T19:53:07Z"));
 		
+		
+		
 		vendaRepository.saveAll(Arrays.asList(v1,v2,v3));
+		
+		VendasItens vi1 = new VendasItens(null,2,"22.0",p2.getPrecoVenda(),p2,v1);
+		VendasItens vi2 = new VendasItens(null,7,"12.0",p1.getPrecoVenda(),p1,v2);
+		VendasItens vi3 = new VendasItens(null,6,"22.0",p2.getPrecoVenda(),p2,v2);
+		
+		
+		vendasItensRepository.saveAll(Arrays.asList(vi1,vi2,vi3));
+		
 		
 	}
 	

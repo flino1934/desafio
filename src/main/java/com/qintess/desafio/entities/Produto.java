@@ -29,6 +29,8 @@ public class Produto implements Serializable {
 
 	@OneToMany(mappedBy = "id.produto")
 	private Set<FornecedorHasProduto> fornecedorHasProduto = new HashSet<>();
+	@OneToMany(mappedBy = "produto")
+	private Set<VendasItens> vendasItens = new HashSet<>();
 
 	public Produto() {
 		// TODO Auto-generated constructor stub
@@ -86,6 +88,11 @@ public class Produto implements Serializable {
 
 	public Set<FornecedorHasProduto> getFornecedorHasProduto() {
 		return fornecedorHasProduto;
+	}
+	
+
+	public Set<VendasItens> getVendasItens() {
+		return vendasItens;
 	}
 
 	@Override

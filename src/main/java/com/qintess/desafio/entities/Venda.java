@@ -2,11 +2,14 @@ package com.qintess.desafio.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,6 +26,9 @@ public class Venda implements Serializable {
 	private String formaPagamento;
 	private Instant data;
 
+	@OneToMany(mappedBy = "venda")
+	private Set<VendasItens> vendasItens = new HashSet<>();
+	
 	public Venda() {
 		// TODO Auto-generated constructor stub
 	}
@@ -75,6 +81,12 @@ public class Venda implements Serializable {
 	public void setData(Instant data) {
 		this.data = data;
 	}
+
+	public Set<VendasItens> getVendasItens() {
+		return vendasItens;
+	}
+	
+	
 
 	@Override
 	public int hashCode() {
